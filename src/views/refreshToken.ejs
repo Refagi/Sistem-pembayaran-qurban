@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>refresh</title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+  <style>
+    .custom-width {
+      max-width: 500px;
+      background-color: #f2f2f2;
+      border-radius: 10px;
+    }
+    /* .btn-primary {
+      background-color: #263134;
+      border-color: #263134;
+    }
+    .nav-link {
+      color: #263134;
+      transition: all 0.2s ease-in-out;
+    }
+    .nav-link:hover {
+      color: #ffff !important;
+      background-color: #2667ff;
+    } */
+  </style>
+</head>
+<body>
+  <div class="container-lg p-5 ">
+    <% if (message && message.message) { %>
+      <div class="alert alert-dismissible fade show alert-<%= message.type %>" role="alert">
+        <strong><%= message.message %></strong>
+        <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
+      </div>
+    <% } else { %>
+      <% message === null %>
+    <% } %>
+    <div class="row justify-content-center">
+      <div class="col-8 col-md-6 col-lg-4 custom-width">
+
+        <ul class="nav nav-pills nav-justified mb-3 mt-5 m-5" id="ex1" role="tablist">
+          <li class="nav-item" role="presentation">
+            <h4 class="text-center fw-bolder">Rrefresh Token</h4>
+          </li>
+        </ul>
+
+        <div class="tab-content m-5">
+          <div class="tab-pane fade show active" id="refreshToken" role="tabpanel" aria-labelledby="tab-refresh">
+            <% if (errorMessage) { %>
+              <div class="alert alert-danger"><%= errorMessage %></div>
+            <% } %>
+            <form action="/api/auth/refresh" method="POST">
+              <div class="container text-center">
+                <div class="row">
+                  <div class="col">
+                    <button type="submit" class="btn btn-outline-success btn-block mb-4">Enter</button>
+                  </div>
+                  <div class="col">
+                    <a type="button" class="btn btn-outline-primary btn-block mb-4" href="/">Go back</a>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+
+</body>
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</html>

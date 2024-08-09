@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+    <title><%= title %></title>
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+
+    <p class="hidden"> <%= user ? user.role : null %></p>
+    <% if(user && user.role === 'user') { %>
+        <header><%- include('./header/headerUser.ejs'); %></header>
+    <% } else if (user && user.role === 'admin') { %>
+        <header><%- include('./header/headerAdmin.ejs'); %></header>
+    <% } else { %>
+      <header><%- include('./header/headerGuest.ejs'); %></header>
+    <% } %>
+
+
+      <div class="container mt-5">
+        <% if (message && message.message) { %>
+          <div class="alert alert-dismissible fade show alert-<%= message.type %>" role="alert">
+            <strong><%= message.message %></strong>
+            <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="close"></button>
+          </div>
+        <% } else { %>
+          <% message === null %>
+        <% } %>
+        <main style="background-color: #ffffff;">
+          <h1 class="fw-bolder text-center mt-5" style="color: #263134;">Hallo <%= user ? user.name : 'guest' %>...</h1>
+          <h2 class="fw-bolder text-center" style="color: #263134;">Selamat datang di sistem pembayaran qurban</h2>
+        </main>
+      </div>
+
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

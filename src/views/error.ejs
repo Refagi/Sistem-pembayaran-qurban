@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+
+<div class="modal fade show" id="modalSignin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Warning</h1>
+        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= errorMessage %>
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-outline-primary" href="/">Kembali</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade show"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>

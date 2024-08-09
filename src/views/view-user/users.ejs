@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+  <style>
+    .custom-width-input-group {
+      width: 35% !important;
+    }
+  </style>
+</head>
+<body>
+  <%- include('../header/headerAdmin.ejs') %>
+
+  <div class="container mt-5">
+
+    <div class="row mt-2 justify-content-between">
+      <div class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto">
+        <form>
+          <a href="/api/users/add-user" class="btn btn-success mx-2" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+              <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+              <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
+            </svg>
+          </a>
+        </form>
+
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= pageSize === null ? 'entries per page' : `${pageSize} per page` %>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="?page=<%= 1 %>&size=<%= 5 %>">5 entries per page</a></li>
+            <li><a class="dropdown-item" href="?page=<%= 1 %>&size=<%= 10 %>">10 entries per page</a></li>
+            <li><a class="dropdown-item" href="?page=<%= 1 %>&size=<%= 15 %>">15 entries per page</a></li>
+            <li><a class="dropdown-item" href="?page=<%= 1 %>&size=<%= 20 %>">20 entries per page</a></li>
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="input-group custom-width-input-group">
+          <form action="?page=<%= currentPage %>&size=<%= pageSize %>&search=<% search %>" method="get" class="input-group ">
+            <input type="search" name="search" class="form-control rounded" value="<%= search %>" aria-label="Search" aria-describedby="search-addon" />
+          <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+          </form>
+        </div>
+
+
+    </div>
+
+    <div class="row my-2">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr class="table-primary">
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Waktu dibuat</th>
+                <th>Waktu diperbaharui</th>
+                <th>Status</th>
+                <th>Menu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (!data || data.length === 0) { %>
+                <tr>
+                  <td colspan="7">No users found</td>
+                </tr>
+              <% } else { %>
+                <% data.forEach(user => { %>
+                  <tr>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.role %></td>
+                    <td><%= new Date(user.createdAt).toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' }) %></td>
+                    <td><%= new Date(user.updatedAt).toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' }) %></td>
+                    <td><%= user.tokens.some(token => token.blacklisted) ? 'Tidak aktif' : 'Aktif'  %></td>
+                    <!-- <td><%= user.notes ? user.notes.length : 0 %></td> -->
+                    <td>
+                      <div class="btn-group">
+                        <form action="/api/users/<%= user.id %>?_method=GET" method="get">
+                          <button class="btn btn-primary" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge" viewBox="0 0 16 16">
+                              <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                              <path d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492z"/>
+                            </svg>
+                          </button>
+                        </form>
+                        <form>
+                          <a class="btn btn-warning mx-2" type="button" href="/api/users/edit/<%= user.id %>">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
+                              <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
+                            </svg>
+                          </a>
+                          </form>
+                        <form action="/api/users/<%= user.id %>?_method=DELETE" method="post">
+                          <button class="btn btn-danger" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                            </svg>
+                          </button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination Controls -->
+<div class="row my-2 justify-content-between">
+  <div class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto">
+    <div class="dt-info" aria-live="polite" id="example_info" role="status">
+      Showing <%= pageSize %> of <%= totalData %> entries
+    </div>
+  </div>
+  <div class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto">
+    <div class="dt-pagging">
+      <nav>
+        <ul class="pagination">
+          <!-- Previous Button -->
+          <li class="dt-paging-button page-item <%= currentPage <= 1 ? 'disabled' : '' %>">
+            <a class="page-link" href="/api/users?page=<%= 1 %>&size=<%= pageSize %>" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+
+          <li class="dt-paging-button page-item <%= currentPage <= 1 ? 'disabled' : '' %>">
+            <a class="page-link" href="/api/users?page=<%= currentPage - 1 %>&size=<%= pageSize %>" aria-label="Previous">
+              <span aria-label="Previous" data-dx-idx="previous"><</span>
+            </a>
+          </li>
+
+          <!-- Page Numbers -->
+          <% for (let i = iteration; i <= endFor; i++) { %>
+            <% if (i === currentPage){ %>
+              <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                <a class="page-link" href="/users?page=<%= i %>&size=<%= pageSize %>">
+                  <%= i %>
+                </a>
+            </li>
+            <% continue %>
+          <% }  %>
+          <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+            <a class="page-link" href="/users?page=<%= i %>&size=<%= pageSize %>">
+              <%= i %>
+            </a>
+        </li>
+          <% } %>
+
+          <% if (currentPage <= totalPage){ %>
+            <li class="dt-paging-button page-item <%= currentPage >= totalPage ? 'disabled' : '' %>">
+              <a class="page-link" href="/users?page=<%= currentPage + 1 %>&size=<%= pageSize %>" aria-label="Previous">
+                <span aria-label="Previous" data-dx-idx="previous">></span>
+              </a>
+            </li>
+        <% } %>
+
+          <!-- Next Button -->
+          <li class="page-item <%= currentPage >= totalPage ? 'disabled' : '' %>">
+            <a class="page-link" href="/users?page=<%= totalPage %>&size=<%= pageSize %>" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

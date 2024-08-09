@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+  <style>
+    /* CSS untuk tabel */
+    table {
+      width: 100%; /* Lebar tabel penuh */
+      border-collapse: collapse; /* Menghilangkan jarak border */
+      margin-top: 10px; /* Jarak antara tabel dan elemen sebelumnya */
+    }
+    th, td {
+      padding: 8px; /* Padding untuk sel */
+      border-bottom: 1px solid #ddd; /* Border bawah pada sel */
+      text-align: left; /* Teks rata kiri */
+    }
+
+  </style>
+</head>
+<body>
+<div class="modal fade show" id="modalSignin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bolder" id="staticBackdropLabel">Hewan qurban</h1>
+      </div>
+      <div class="modal-body">
+        <table>
+          <tbody>
+            <tr>
+              <th>Id </th>
+              <td><%= animals.id %></td>
+            </tr>
+
+            <tr>
+              <th>Hewan </th>
+              <td><%= animals.type %></td>
+            </tr>
+
+            <tr>
+              <th>Harga </th>
+              <td><%= animals.price %></td>
+            </tr>
+
+            <tr>
+              <th>Status </th>
+              <td><%= animals.status %></td>
+            </tr>
+
+            <tr>
+              <th>Berat </th>
+              <td><%= animals.weight %></td>
+            </tr>
+
+            <tr>
+              <th>Jenis kelamin </th>
+              <td><%= animals.gender %></td>
+            </tr>
+
+            <tr>
+              <th>Umur </th>
+              <td><%= animals.age %></td>
+            </tr>
+
+            <tr>
+              <th>Pembayaran </th>
+              <td>
+                <%= animals.payments.length %>
+                transaksi
+              </td>
+            </tr>
+
+            <tr>
+              <th>Catatan </th>
+              <td>
+                <%= animals.notes.length %>
+                catatan
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-outline-primary" href="/api/animals">Kembali</a>
+        <form action="/api/animals/select-animals/<%= animals.id %>?_method=POST" method="post">
+          <button class="btn btn-outline-success" type="submit" data-mdb-ripple-init>Pilih</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade show"></div>
+
+</body>
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</html>

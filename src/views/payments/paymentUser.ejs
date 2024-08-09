@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<style>
+  .custom-width {
+    max-width: 500px;
+    background-color: #e7eaec;
+    border-radius: 10px;
+  }
+  .btn-primary {
+    background-color: #263134;
+    border-color: #263134;
+  }
+  /* .nav-link {
+    color: #263134;
+    transition: all 0.2s ease-in-out;
+  }
+  .nav-link:hover {
+    color: #ffff !important;
+    background-color: #2667ff;
+  } */
+</style>
+</head>
+<body>
+
+<div class="container-lg p-5 ">
+
+  <div class="row justify-content-center">
+    <div class="col-10 col-md-8 col-lg-6 custom-width">
+
+      <ul class="nav nav-pills nav-justified mb-3 mt-5 m-5" id="ex1" role="tablist">
+        <li class="nav-item" role="presentation">
+          <h2 class="fw-bolder text-center">Payment</h2>
+        </li>
+      </ul>
+
+      <div class="tab-content m-5">
+        <div class="tab-pane fade show active" id="paymentAnimal" role="tabpanel" aria-labelledby="tab-paymentAnimal">
+          <% if (errorMessage) { %>
+            <div class="alert alert-danger"><%= errorMessage %></div>
+          <% } %>
+          <form action="/api/payments?_method=POST" method="POST">
+
+            <div class="form-outline mb-4 fw-bolder">
+              <input type="text" id="payment-animal_id" class="form-control" name="animal_id" value="<%= animal.id %>" />
+            </div>
+
+            <div class="form-outline mb-4 fw-bolder">
+              <input type="text" id="payment-notes_id" class="form-control" name="notes_id" value="<%= notes.id %>" />
+            </div>
+
+            <div class="form-outline mb-4 fw-bolder">
+              <input type="number" id="payment-amount" class="form-control" name="amount" placeholder="Amout" />
+            </div>
+
+            <div class="form-outline mb-4 fw-bolder">
+              <input type="text" id="payment-status_animal" class="form-control" name="status_animal" placeholder="Status animal" list="statusOptions" />
+              <datalist id="statusOptions">
+                <option value="available">
+                <option value="sold">
+              </datalist>
+            </div>
+
+            <div class="form-outline mb-4 fw-bolder">
+              <input type="name" id="payment-name" class="form-control" name="name" placeholder="Name" />
+            </div>
+
+            <div class="form-outline mb-4 fw-bolder">
+              <input type="text" id="payment-handphone" class="form-control" name="handphone" placeholder="Phone Number +62" />
+            </div>
+
+            <div class="form-outline mb-4 fw-bolder">
+              <input type="text" id="payment-information" class="form-control" name="information" placeholder="information" />
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-outline-primary btn-block mb-4 mt-3">submit</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</html>

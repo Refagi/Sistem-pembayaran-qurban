@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<style>
+  .custom-width {
+    max-width: 500px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+  }
+  /* .btn-primary {
+    background-color: #263134;
+    border-color: #263134;
+  } */
+  /* .nav-link {
+    color: #263134;
+    transition: all 0.2s ease-in-out;
+  }
+  .nav-link:hover {
+    color: #ffff !important;
+    background-color: #2667ff;
+  } */
+</style>
+
+<div class="container-lg p-5 ">
+  <div class="row justify-content-center ">
+    <div class="col-8 col-md-6 col-lg-4 custom-width ">
+      <p class="fw-bolder text-center mt-3">Yakin mau keluar halaman?</p>
+
+      <div class="tab-content m-3">
+          <% if (errorMessage) { %>
+            <div class="alert alert-danger"><%= errorMessage %></div>
+          <% } %>
+          <form action="/api/auth/logout" method="POST">
+            <div class="container text-center">
+              <div class="row">
+                <div class="col">
+                  <button type="submit" class="btn btn-outline-danger btn-block mb-4">Keluar</button>
+                </div>
+                <div class="col">
+                  <a type="button" class="btn btn-outline-primary btn-block mb-4" href="/">Kembali</a>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+

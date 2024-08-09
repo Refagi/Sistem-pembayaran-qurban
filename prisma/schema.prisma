@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String       @id @default(uuid())
+  name            String
+  email           String       @unique
+  password        String
+  role            String
+  age             Float
+  adress          String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  tokens          Token[]
+  notes           Notes[]
+}
+
+model Token {
+  id          String    @id @default(uuid())
+  token       String    @db.VarChar(400)
+  userId      String
+  User        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        String
+  expires     DateTime
+  blacklisted Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Animals {
+  id          String    @id @default(uuid())
+  type        String
+  price       Float
+  status      String
+  weight      Float
+  gender      String
+  age         Float
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  payments    Payment[]
+  notes       Notes[]
+}
+
+model Payment {
+  id            String    @id @default(uuid())
+  animal_id     String
+  Animal        Animals   @relation(fields: [animal_id], references: [id], onDelete: Cascade)
+  notes_id      String
+  Notes         Notes     @relation(fields: [notes_id], references: [id], onDelete: Cascade)
+  amount        Float
+  status_animal String
+  name          String
+  handphone     String
+  information   String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Notes {
+  id                String    @id @default(uuid())
+  user_id           String
+  User              User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  animal_id         String
+  Animal            Animals   @relation(fields: [animal_id], references: [id])
+  payment_amount    Float     @default(0)
+  paidOff           Boolean   @default(false)
+  name              String
+  email             String
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  payments          Payment[]
+}

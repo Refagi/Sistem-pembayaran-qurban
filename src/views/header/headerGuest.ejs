@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+<style>
+  .nav-link {
+    color: #263134;
+    transition: all 0.2s ease-in-out;
+  }
+  .nav-link:is(:link, :active, :visited).active{
+    color: #ffff !important;
+    background-color: #2667ff;
+    border-radius: 10px;
+  }
+</style>
+<nav class="navbar navbar-expand-lg p-0">
+  <div class="container-fluid" style="background-color: #f2f2f2">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarTogglerDemo03"
+      aria-controls="navbarTogglerDemo03"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <h5 class="navbar-brand ps-3 my-3 fw-bolder" style="color: #263134">Sistem Pembayaran Qurban</h5>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav ms-auto mb-lg-0 me-3">
+        <li class="nav-item ms-3">
+          <a class="nav-link fw-bolder" aria-current="page" href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house-door-fill m-1" viewBox="0 0 16 16">
+              <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+            </svg>
+            Beranda
+          </a>
+        </li>
+        <li class="nav-item ms-3">
+          <a class="nav-link fw-bolder" aria-current="page" href="/api/auth/login">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-door-open m-1" viewBox="0 0 16 16">
+              <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
+              <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"/>
+            </svg>
+            Masuk
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</script>
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+  let currentLinkPath = location.pathname; //ambil path location dri window
+  let navLinks = document.querySelectorAll('.nav-link');
+
+  navLinks.forEach(function(link) {
+    if (link.getAttribute('href') === currentLinkPath) {
+      link.classList.add('active');
+    }
+  });
+</script>
+
