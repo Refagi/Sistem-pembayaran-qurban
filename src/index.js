@@ -2,6 +2,9 @@ const app = require('./app');
 const prisma = require('../prisma/index');
 const config = require('./config/config');
 
+// Ambil port dari variabel lingkungan PORT, jika tidak ada gunakan port default dari config
+const PORT = process.env.PORT || config.port;
+
 let server;
 
 if (prisma) {
